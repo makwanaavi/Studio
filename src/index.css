@@ -1,0 +1,57 @@
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* base font family */
+:root {
+  --max-w: 1200px;
+}
+
+/* Use Tailwind font family utilities inside components, but set default */
+html, body, #root {
+  height: 100%;
+  background-color: black; 
+}
+
+body {
+  @apply font-body bg-white text-[#111827];
+}
+
+/* Header background overlay (same as original radial + image) */
+.header-bg {
+  background-image: radial-gradient(rgba(255,255,255,0), rgba(0,0,0,0.85)), url('/assets/header.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Service section background with dark overlay */
+.service-bg {
+  background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('/assets/service.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Portfolio overlays */
+.portfolio-overlay {
+  background-color: rgba(0,0,0,0.5);
+  transition: opacity .3s ease;
+  opacity: 0;
+}
+.portfolio-card:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+/* Instagram scroll animation */
+.instagram-scroll {
+  animation: scroll-anim 45s linear infinite;
+}
+@media (min-width: 768px) {
+  .header-minh {
+    min-height: 650px;
+  }
+}
