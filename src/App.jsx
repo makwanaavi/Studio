@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main className="bg-black">
+      <main className="bg-white">
         <Hero />
         <About />
         <Portfolio />
