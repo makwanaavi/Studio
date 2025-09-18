@@ -3,6 +3,7 @@ import LogoWhite from "../assets/logo-white.png";
 import hero1 from "../assets/header.jpg";
 import hero2 from "../assets/portfolio-2.jpg";
 import hero3 from "../assets/image-6.jpg";
+import Hero from "./Hero";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -35,54 +36,74 @@ export default function Header() {
   }, [slides.length]);
 
   return (
-    <header id="home" className="header-bg header-minh relative">
-      {/* Nav wrapper max-width */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm">
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile header bar */}
-          <div className="flex items-center justify-between py-3 sm:py-4 bg-brand-black/90 md:hidden">
-            <div className="nav__logo">
-              <a href="#">
-                <img src="" alt="logo" className="w-[60px] sm:w-[70px]" />
+    <header id="home" className="relative min-h-screen w-full overflow-hidden">
+      {/* Enhanced Navigation */}
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div className="w-full">
+          {/* Mobile header bar - Full width, no margins */}
+          <div className="flex items-center justify-between h-16 px-4 bg-gradient-to-r from-black/95 via-black/90 to-black/95 backdrop-blur-lg border-b border-white/10 md:hidden">
+            <div className="flex items-center">
+              <a href="#" className="flex items-center">
+                <img src={LogoWhite} alt="logo" className="w-14 h-12 object-contain" />
               </a>
             </div>
             <button
               onClick={() => setOpen(!open)}
-              className="text-2xl text-brand-white hover:text-gray-300 transition-colors p-2"
+              className="relative w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-lg transition-all duration-200 group"
               aria-label="menu"
             >
-              <i className={`${open ? 'ri-close-line' : 'ri-menu-line'}`}></i>
+              <div className="relative">
+                <i className={`${open ? 'ri-close-line' : 'ri-menu-line'} text-2xl transition-transform duration-200 ${open ? 'rotate-90' : ''}`}></i>
+              </div>
             </button>
           </div>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center justify-between py-4 lg:py-6 bg-transparent">
-            {/* Left nav items - hidden on smaller desktop screens */}
-            <ul className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-medium">
-              <li><a href="#home" className="text-brand-white hover:text-gray-300 transition-colors">HOME</a></li>
-              <li><a href="#about" className="text-brand-white hover:text-gray-300 transition-colors">ABOUT US</a></li>
-              <li><a href="#service" className="text-brand-white hover:text-gray-300 transition-colors">SERVICES</a></li>
+          <div className="hidden md:flex items-center justify-between py-4 lg:py-6 px-6 lg:px-12 bg-gradient-to-r from-black/90 via-black/80 to-black/90 backdrop-blur-lg border-b border-white/5">
+            {/* Left nav items */}
+            <ul className="hidden lg:flex items-center gap-8 xl:gap-10 text-sm font-medium tracking-wider">
+              <li><a href="#home" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                HOME
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
+              <li><a href="#about" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                ABOUT US
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
+              <li><a href="#service" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                SERVICES
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
             </ul>
 
             {/* Center logo */}
-            <div className="mx-auto lg:mx-4">
-              <a href="#">
-                <img src="" alt="logo" className="w-[120px] lg:w-[140px] xl:w-[150px]" />
+            <div className="mx-auto lg:mx-8">
+              <a href="#" className="transform hover:scale-105 transition-transform duration-300">
+                <img src={LogoWhite} alt="logo" className="w-16 h-16 lg:w-20 lg:h-20 object-contain" />
               </a>
             </div>
 
-            {/* Right nav items - hidden on smaller desktop screens */}
-            <ul className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm font-medium">
-              <li><a href="#client" className="text-brand-white hover:text-gray-300 transition-colors">CLIENT</a></li>
-              <li><a href="#blog" className="text-brand-white hover:text-gray-300 transition-colors">BLOG</a></li>
-              <li><a href="#contact" className="text-brand-white hover:text-gray-300 transition-colors">CONTACT US</a></li>
+            {/* Right nav items */}
+            <ul className="hidden lg:flex items-center gap-8 xl:gap-10 text-sm font-medium tracking-wider">
+              <li><a href="#client" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                CLIENT
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
+              <li><a href="#blog" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                BLOG
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
+              <li><a href="#contact" className="text-white hover:text-orange-400 transition-all duration-300 relative group">
+                CONTACT US
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-400 transition-all duration-300 group-hover:w-full"></span>
+              </a></li>
             </ul>
 
             {/* Compact nav for medium screens */}
-            <div className="flex lg:hidden items-center gap-4 text-xs font-medium">
-              <a href="#about" className="text-brand-white hover:text-gray-300 transition-colors">ABOUT</a>
-              <a href="#service" className="text-brand-white hover:text-gray-300 transition-colors">SERVICES</a>
-              <a href="#contact" className="text-brand-white hover:text-gray-300 transition-colors">CONTACT</a>
+            <div className="flex lg:hidden items-center gap-6 text-xs font-medium tracking-wider">
+              <a href="#about" className="text-white hover:text-orange-400 transition-all duration-300">ABOUT</a>
+              <a href="#service" className="text-white hover:text-orange-400 transition-all duration-300">SERVICES</a>
+              <a href="#contact" className="text-white hover:text-orange-400 transition-all duration-300">CONTACT</a>
             </div>
           </div>
 
@@ -92,21 +113,21 @@ export default function Header() {
               ? 'opacity-100 translate-y-0 visible' 
               : 'opacity-0 -translate-y-4 invisible'
           }`}>
-            <ul className="bg-brand-black/95 backdrop-blur-sm text-center py-6 space-y-4 shadow-lg">
-              <li><a onClick={()=>setOpen(false)} href="#home" className="block text-brand-white hover:text-gray-300 transition-colors py-2">HOME</a></li>
-              <li><a onClick={()=>setOpen(false)} href="#about" className="block text-brand-white hover:text-gray-300 transition-colors py-2">ABOUT US</a></li>
-              <li><a onClick={()=>setOpen(false)} href="#service" className="block text-brand-white hover:text-gray-300 transition-colors py-2">SERVICES</a></li>
-              <li><a onClick={()=>setOpen(false)} href="#client" className="block text-brand-white hover:text-gray-300 transition-colors py-2">CLIENT</a></li>
-              <li><a onClick={()=>setOpen(false)} href="#blog" className="block text-brand-white hover:text-gray-300 transition-colors py-2">BLOG</a></li>
-              <li><a onClick={()=>setOpen(false)} href="#contact" className="block text-brand-white hover:text-gray-300 transition-colors py-2">CONTACT US</a></li>
+            <ul className="bg-gradient-to-b from-black/95 to-black/90 backdrop-blur-lg text-center py-8 space-y-6 shadow-2xl border-b border-white/10">
+              <li><a onClick={()=>setOpen(false)} href="#home" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">HOME</a></li>
+              <li><a onClick={()=>setOpen(false)} href="#about" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">ABOUT US</a></li>
+              <li><a onClick={()=>setOpen(false)} href="#service" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">SERVICES</a></li>
+              <li><a onClick={()=>setOpen(false)} href="#client" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">CLIENT</a></li>
+              <li><a onClick={()=>setOpen(false)} href="#blog" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">BLOG</a></li>
+              <li><a onClick={()=>setOpen(false)} href="#contact" className="block text-white hover:text-orange-400 transition-all duration-300 text-lg font-medium tracking-wider py-3 transform hover:scale-105">CONTACT US</a></li>
             </ul>
           </div>
         </div>
       </nav>
 
-      {/* Slider inserted here - layered crossfade + Ken Burns */}
+      {/* Hero Section with Enhanced Background Slider */}
       <div
-        className="min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] xl:min-h-[800px] relative overflow-hidden"
+        className="min-h-screen relative overflow-hidden"
         onMouseEnter={() => stopAutoplay()}
         onMouseLeave={() => startAutoplay()}
         onTouchStart={() => stopAutoplay()}
@@ -115,10 +136,15 @@ export default function Header() {
         <style>{`
           @keyframes kenburns {
             0% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.06) translateY(-2%); }
-            100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.08) translateY(-3%); }
+            100% { transform: scale(1.05) translateY(-1%); }
           }
-          .slide-anim { transition: opacity 1000ms ease-in-out; }
+          @keyframes heroFadeIn {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .slide-anim { transition: opacity 1200ms ease-in-out; }
+          .hero-content { animation: heroFadeIn 1.5s ease-out 0.5s both; }
         `}</style>
 
         {/* Layered slides for smooth crossfade + Ken Burns */}
@@ -130,7 +156,6 @@ export default function Header() {
               aria-hidden={idx === current ? 'false' : 'true'}
             >
               <picture>
-                {/* srcSet can be extended with high-res images if available */}
                 <img
                   src={src}
                   srcSet={`${src} 1x, ${src} 2x`}
@@ -140,54 +165,29 @@ export default function Header() {
                   decoding="async"
                   className={`w-full h-full object-cover block will-change-transform ${idx === current ? 'animate-kenburns' : ''}`}
                   style={{
-                    minHeight: '400px',
-                    animation: idx === current ? 'kenburns 12s ease-in-out both' : 'none'
+                    minHeight: '100vh',
+                    animation: idx === current ? 'kenburns 15s ease-in-out infinite' : 'none'
                   }}
                 />
               </picture>
 
-              {/* overlay for contrast */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40 pointer-events-none"></div>
-
-              {/* optional centered content */}
-              {idx === current && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="text-center text-white max-w-[90%] md:max-w-[700px]">
-                    {/* Add headline or CTA here if desired */}
-                  </div>
-                </div>
-              )}
+              {/* Enhanced overlay with gradient */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 pointer-events-none"></div>
             </div>
           ))}
         </div>
 
-        {/* Controls */}
-        <button
-          onClick={() => { prevSlide(); stopAutoplay(); setTimeout(() => startAutoplay(), 2000); }}
-          aria-label="previous"
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full shadow-lg z-30 hover:bg-black/60 transition"
-        >
-          <i className="ri-arrow-left-s-line text-xl"></i>
-        </button>
-        <button
-          onClick={() => { nextSlide(); stopAutoplay(); setTimeout(() => startAutoplay(), 2000); }}
-          aria-label="next"
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full shadow-lg z-30 hover:bg-black/60 transition"
-        >
-          <i className="ri-arrow-right-s-line text-xl"></i>
-        </button>
-
-        {/* Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-30">
-          {slides.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => { goTo(idx); stopAutoplay(); setTimeout(() => startAutoplay(), 2000); }}
-              className={`w-3.5 h-3.5 rounded-full transition-all ${idx === current ? 'bg-white scale-110' : 'bg-white/40'}`}
-              aria-label={`go-to-${idx}`}
-            ></button>
-          ))}
-        </div>
+        {/* Render Hero presentational component and pass controls */}
+        <Hero
+          slides={slides}
+          current={current}
+          nextSlide={nextSlide}
+          prevSlide={prevSlide}
+          goTo={goTo}
+          startAutoplay={startAutoplay}
+          stopAutoplay={stopAutoplay}
+        />
       </div>
     </header>
   );
