@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import hero1 from "../assets/header.jpg";
-import hero2 from "../assets/portfolio-2.jpg";
-import hero3 from "../assets/image-6.jpg";
 
 const Hero = () => {
-  const slides = [hero1, hero2, hero3];
+  const slides = [hero1];
   const [current, setCurrent] = useState(0);
   const slideInterval = useRef(null);
 
   // Controls
   const nextSlide = () => setCurrent((c) => (c === slides.length - 1 ? 0 : c + 1));
-  const prevSlide = () => setCurrent((c) => (c === 0 ? slides.length - 1 : c - 1));
+  const prevSlide = () => setCurrent((c) => (c === 0  ? slides.length - 1 : c - 1));
   const goTo = (i) => setCurrent(i);
 
   // Autoplay
@@ -27,7 +25,7 @@ const Hero = () => {
 
   return (
     <div
-      className="min-h-screen relative overflow-hidden"
+      className="relative w-full h-screen overflow-hidden"
       onMouseEnter={stopAutoplay}
       onMouseLeave={startAutoplay}
       onTouchStart={stopAutoplay}
@@ -37,10 +35,26 @@ const Hero = () => {
       <style>{`
         @keyframes kenburns {
           0% { transform: scale(1) translateY(0); }
-          50% { transform: scale(1.08) translateY(-3%); }
+          50% { transform: scale(1.08) translateY(-2%); }
           100% { transform: scale(1.05) translateY(-1%); }
         }
-        .slide-anim { transition: opacity 1200ms ease-in-out; }
+        @keyframes slideIn {
+          0% { opacity: 0; transform: scale(1.1); }
+          100% { opacity: 1; transform: scale(1); }
+        }
+        .slide-anim { 
+          transition: opacity 1200ms ease-in-out, transform 1200ms ease-in-out; 
+        }
+        .hero-img {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          image-rendering: optimize-quality;
+        }
+        @media (max-width: 768px) {
+          .kenburns-mobile {
+            animation: kenburns 12s ease-in-out infinite;
+          }
+        }
       `}</style>
 
       {/* Slides */}
@@ -54,52 +68,67 @@ const Hero = () => {
           >
             <img
               src={src}
-              alt={`slide-${idx}`}
-              className="w-full h-full object-cover block"
+              alt={`Studio slide ${idx + 1}`}
+              className="w-full h-full object-cover hero-img"
               style={{
+                width: "100vw",
+                height: "100vh",
                 minHeight: "100vh",
+                maxWidth: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
                 animation: idx === current ? "kenburns 15s ease-in-out infinite" : "none",
               }}
+              loading={idx === 0 ? "eager" : "lazy"}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40"></div>
+            <div className="absolute inset-0 bg-white//10"></div>
+            <div className="absolute inset-0 bg-white/10"></div>
           </div>
         ))}
       </div>
 
-      {/* Prev/Next */}
+      {/* Navigation Controls */}
       <button
         onClick={() => { prevSlide(); stopAutoplay(); setTimeout(startAutoplay, 3000); }}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/20 text-white p-4 rounded-full z-40 hover:bg-white/30"
+        className="absolute left-2 sm:left-4 lg:left-8 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm text-white p-2 sm:p-3 lg:p-4 rounded-full z-40 hover:bg-white/30 transition-all duration-300 hover:scale-110"
+        aria-label="Previous slide"
       >
-        <i className="ri-arrow-left-s-line text-2xl"></i>
+        <i className="ri-arrow-left-s-line text-lg sm:text-xl lg:text-2xl"></i>
       </button>
       <button
         onClick={() => { nextSlide(); stopAutoplay(); setTimeout(startAutoplay, 3000); }}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/20 text-white p-4 rounded-full z-40 hover:bg-white/30"
+        className="absolute right-2 sm:right-4 lg:right-8 top-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm text-white p-2 sm:p-3 lg:p-4 rounded-full z-40 hover:bg-white/30 transition-all duration-300 hover:scale-110"
+        aria-label="Next slide"
       >
-        <i className="ri-arrow-right-s-line text-2xl"></i>
+        <i className="ri-arrow-right-s-line text-lg sm:text-xl lg:text-2xl"></i>
       </button>
 
       {/* Pagination dots */}
-      <div className="absolute left-6 bottom-8 z-40 flex items-center gap-3">
+      <div className="absolute left-4 sm:left-6 lg:left-8 bottom-6 sm:bottom-8 z-40 flex items-center gap-2 sm:gap-3">
         {slides.map((_, idx) => (
           <button
             key={idx}
             onClick={() => { goTo(idx); stopAutoplay(); setTimeout(startAutoplay, 3000); }}
-            className={`w-3 h-3 rounded-full ${idx === current ? "bg-white" : "bg-white/40"}`}
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 hover:scale-125 ${
+              idx === current ? "bg-white shadow-lg" : "bg-white/40 hover:bg-white/60"
+            }`}
+            aria-label={`Go to slide ${idx + 1}`}
           />
         ))}
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 right-8 z-40 hidden md:block">
-        <div className="flex flex-col items-center text-white animate-bounce">
-          <span className="text-sm mb-2">SCROLL</span>
-          <div className="w-px h-8 bg-white/50"></div>
-          <i className="ri-arrow-down-line text-xl mt-2"></i>
+      {/* Scroll Indicator - Enhanced for mobile */}
+      <div className="absolute bottom-6 sm:bottom-8 right-4 sm:right-6 lg:right-8 z-40 flex flex-col items-center text-yellow-400">
+        <div className="hidden sm:flex flex-col items-center animate-bounce">
+          <span className="text-xs sm:text-sm mb-1 sm:mb-2 font-medium tracking-wide">SCROLL</span>
+          <div className="w-px h-6 sm:h-8 bg-yellow-400"></div>
+          <i className="ri-arrow-down-line text-lg sm:text-xl mt-1 sm:mt-2"></i>
+        </div>
+        <div className="sm:hidden animate-bounce">
+          <i className="ri-arrow-down-line text-2xl"></i>
         </div>
       </div>
+
     </div>
   );
 };

@@ -11,7 +11,7 @@ const items = [
 
 export default function Portfolio() {
   return (
-    <section className="max-w-[1200px] mx-auto py-20 px-4 bg-black">
+    <section className="max-w-[1200px] mx-auto py-20 px-4 bg-white">
       <h2 className="text-3xl font-header text-center mb-8 text-[#F9C801]">~ PORTFOLIO ~</h2>
 
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

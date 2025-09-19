@@ -17,9 +17,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="service" className="service-bg py-20 px-4">
+    <section id="service" className="service-bg py-20 px-4 bg-black md:h-[600px] lg:h-[700px] relative overflow-hidden">
       <div className="max-w-[1200px] mx-auto text-center text-white">
-        <h2 className="text-3xl font-header mb-4 text-[#F9C801]">~ SERVICES ~</h2>
+        <h2 className="text-3xl font-header mb-4 text-yellow-500">~ SERVICES ~</h2>
         <p className="max-w-[600px] mx-auto text-gray-300">
           At Capturer, we offer a range of professional photography services tailored to meet your unique needs.
           With a commitment to excellence and creativity, we strive to exceed your expectations.

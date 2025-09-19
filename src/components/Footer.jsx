@@ -1,40 +1,139 @@
-import React from "react";
+import LogoWhite from "../assets/logo-white.png";
 
 export default function Footer() {
+
+
+
   return (
-    <footer id="contact" className="mt-8">
-      <div className="max-w-[1200px] mx-auto px-4 py-12 grid gap-8 md:grid-cols-3 items-center">
-        <div className="text-center md:text-left">
-          <img src="/assets/logo-dark.png" alt="logo" className="mx-auto md:mx-0 w-[170px] mb-4" />
-          <div className="flex items-center justify-center md:justify-start gap-4 text-2xl">
-            <a href="#" className="text-black"><i className="ri-facebook-fill"></i></a>
-            <a href="#" className="text-black"><i className="ri-instagram-line"></i></a>
-            <a href="#" className="text-black"><i className="ri-twitter-fill"></i></a>
-            <a href="#" className="text-black"><i className="ri-youtube-fill"></i></a>
-            <a href="#" className="text-black"><i className="ri-pinterest-line"></i></a>
+    <footer id="contact" className="relative bg-black text-white overflow-hidden">
+
+      {/* Main Footer Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        <div className="grid gap-12 lg:gap-16 lg:grid-cols-4 md:grid-cols-2">
+
+          {/* Brand Section */}
+          <div className="lg:col-span-1 text-center md:text-left">
+            <div className="mb-6">
+              <img
+                src={LogoWhite}
+                alt="Studio Logo"
+                className="mx-auto md:mx-0 w-[180px] lg:w-[200px] hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+            <p className="text-gray-300 mb-6 leading-relaxed text-sm lg:text-base">
+              Capturing life's most precious moments with artistry, passion, and professional excellence.
+            </p>
+            <div className="flex items-center justify-center md:justify-start gap-4">
+              {[
+                { icon: "ri-facebook-fill", href: "#", color: "hover:text-blue-500" },
+                { icon: "ri-instagram-line", href: "#", color: "hover:text-pink-500" },
+                { icon: "ri-twitter-fill", href: "#", color: "hover:text-blue-400" },
+                { icon: "ri-youtube-fill", href: "#", color: "hover:text-red-500" },
+                { icon: "ri-pinterest-line", href: "#", color: "hover:text-red-400" }
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href={social.href}
+                  className={`w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-lg transition-all duration-300 hover:bg-white/20 hover:scale-110 ${social.color} backdrop-blur-sm`}
+                  aria-label={`Follow us on ${social.icon.split('-')[1]}`}
+                >
+                  <i className={social.icon}></i>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="text-center md:text-left">
+            <h4 className="text-xl font-bold mb-6 text-yellow-400 relative">
+              Quick Links
+              <div className="absolute bottom-0 left-0 md:left-0 right-0 md:right-auto w-12 h-0.5 bg-yellow-400 mx-auto md:mx-0"></div>
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { name: "HOME", href: "#home" },
+                { name: "ABOUT US", href: "#about" },
+                { name: "SERVICES", href: "#service" },
+                { name: "PORTFOLIO", href: "#portfolio" },
+                { name: "BLOG", href: "#blog" },
+                { name: "CONTACT", href: "#contact" }
+              ].map((link, index) => (
+                <li key={index}>
+                  <a
+                    href={link.href}
+                    className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Services */}
+          <div className="text-center md:text-left">
+            <h4 className="text-xl font-bold mb-6 text-yellow-400 relative">
+              Our Services
+              <div className="absolute bottom-0 left-0 md:left-0 right-0 md:right-auto w-12 h-0.5 bg-yellow-400 mx-auto md:mx-0"></div>
+            </h4>
+            <ul className="space-y-3">
+              {[
+                "Wedding Photography",
+                "Portrait Sessions",
+                "Event Coverage",
+                "Commercial Shoots",
+                "Photo Editing",
+                "Consultation"
+              ].map((service, index) => (
+                <li key={index}>
+                  <span className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 cursor-pointer">
+                    {service}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact & Newsletter */}
+          <div className="text-center md:text-left">
+            <h4 className="text-xl font-bold mb-6 text-yellow-400 relative">
+              Stay Connected
+              <div className="absolute bottom-0 left-0 md:left-0 right-0 md:right-auto w-12 h-0.5 bg-yellow-400 mx-auto md:mx-0"></div>
+            </h4>
+
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                <i className="ri-mail-line text-yellow-400"></i>
+                <span className="text-gray-300 text-sm">hello@studio.com</span>
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-3">
+                <i className="ri-phone-line text-yellow-400"></i>
+                <span className="text-gray-300 text-sm">+1 (555) 123-4567</span>
+              </div>
+              <div className="flex items-start justify-center md:justify-start gap-3">
+                <i className="ri-map-pin-line text-yellow-400 mt-1"></i>
+                <span className="text-gray-300 text-sm">123 Photography St.<br />Creative City, CC 12345</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div>
-          <ul className="grid grid-cols-2 gap-2 text-center">
-            <li><a href="#home" className="font-semibold text-white">HOME</a></li>
-            <li><a href="#about" className="font-semibold text-white">ABOUT US</a></li>
-            <li><a href="#service" className="font-semibold text-white">SERVICES</a></li>
-            <li><a href="#client" className="font-semibold text-white">CLIENT</a></li>
-            <li><a href="#blog" className="font-semibold text-white">BLOG</a></li>
-            <li><a href="#contact" className="font-semibold text-white">CONTACT US</a></li>
-          </ul>
-        </div>
-
-        <div className="text-center md:text-left">
-          <h4 className="text-lg font-semibold mb-2 text-white">STAY IN TOUCH</h4>
-          <p className="text-white leading-7">Keep up-to-date with all things Capturer! Join our community and never miss a moment!</p>
+        {/* Divider */}
+        <div className="border-t border-white/10 mt-16 lg:mt-20 pt-8">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+            <div className="text-gray-400 text-sm order-2 lg:order-1">
+              © 2024 Studio Photography. All rights reserved. | Designed with ❤️
+            </div>
+            <div className="flex flex-wrap justify-center gap-6 text-sm order-1 lg:order-2">
+              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Privacy Policy</a>
+              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Terms of Service</a>
+              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Cookie Policy</a>
+              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Sitemap</a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="bg-brand-black text-white text-center py-3">
-        Copyright © 2024 Studio. All rights reserved.
-      </div>
     </footer>
   );
 }
