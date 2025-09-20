@@ -33,7 +33,7 @@ const slides = [
 
 export default function Testimonials() {
   return (
-    <section id="client" className="py-20  to-gray-100 relative overflow-hidden">
+    <section id="client" className="py-20  relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full blur-3xl"></div>
@@ -48,7 +48,7 @@ export default function Testimonials() {
         <h2 className="text-3xl font-header mb-4 text-yellow-500">~  CLIENT TESTIMONIALS ~</h2>
 
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
             What Our Clients Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -88,13 +88,13 @@ export default function Testimonials() {
                 <div className="group">
                   <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 h-full flex flex-col">
                     {/* Quote Icon */}
-                    <div className="flex justify-center mb-6">
+                    {/* <div className="flex justify-center mb-6">
                       <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg">
                         <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
                         </svg>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Testimonial Text */}
                     <p className="text-gray-700 text-center leading-relaxed mb-8 flex-grow italic">
@@ -102,13 +102,13 @@ export default function Testimonials() {
                     </p>
 
                     {/* Rating Stars */}
-                    <div className="flex justify-center mb-6">
+                    {/* <div className="flex justify-center mb-6">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
                           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                       ))}
-                    </div>
+                    </div> */}
 
                     {/* Client Info */}
                     <div className="text-center">
