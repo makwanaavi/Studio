@@ -69,13 +69,13 @@ export default function Header() {
               {/* Right nav */}
               <ul className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium tracking-wide text-white">
                 <li>
-                  <Link to="/aboutu transition-colors duration-200">ABOUT US</Link>
+                  <Link to="/aboutus"  className=" transition-colors duration-200">ABOUT US</Link>
                 </li>
                 <li>
-                  <Link to="/servic transition-colors duration-200">SERVICES</Link>
+                  <Link to="/service " className=" transition-colors duration-200">SERVICES</Link>
                 </li>
                 <li>
-                  <Link to="/contactu transition-colors duration-200">CONTACT US</Link>
+                  <Link to="/contactus" className=" transition-colors duration-200">CONTACT US</Link>
                 </li>
               </ul>
             </div>
@@ -134,7 +134,7 @@ export default function Header() {
                   to="/aboutus"
                   className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600"
                 >
-                  ABOUT US
+                  OUR WORK
                 </Link>
               </li>
               <li>
@@ -149,10 +149,10 @@ export default function Header() {
               <li>
                 <Link
                   onClick={() => setOpen(false)}
-                  to="/outwork"
+                  to="/aboutus"
                   className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600"
                 >
-                  OUR WORK
+                  ABOUT US
                 </Link>
               </li>
               <li>
