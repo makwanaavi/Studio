@@ -61,12 +61,12 @@ export default function Header() {
           </div>
 
           {/* Mobile nav */}
-          <div className="flex items-center justify-between h-16 px-4 bg-white md:hidden">
+          <div className="flex items-center justify-between h-16 px-4 bg-white text-black md:hidden">
             <Link to="/" aria-label="Home">
               <img
                 src={LogoWhite}
                 alt="Studio logo"
-                className="w-16 h-16 object-contain block"
+                className="w-16 h-16 object-contain block bg-black rounded-full"
                 loading="lazy"
                 onError={(e) => {
                   e.currentTarget.onerror = null;
@@ -76,7 +76,7 @@ export default function Header() {
             </Link>
             <button
               onClick={() => setOpen(!open)}
-              className="w-10 h-10 flex items-center justify-center text-white hover:bg-white/10 rounded-lg transition-all"
+              className="w-10 h-10 flex items-center justify-center text-black  rounded-lg transition-all"
               aria-label="menu"
             >
               <i className={`${open ? "ri-close-line" : "ri-menu-line"} text-2xl`} />
@@ -94,7 +94,7 @@ export default function Header() {
                 <Link
                   onClick={() => setOpen(false)}
                   to="/"
-                  className="block text-white hover:text-orange-400 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
+                  className="block text-yellow-500 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
                 >
                   HOME
                 </Link>
@@ -103,7 +103,7 @@ export default function Header() {
                 <Link
                   onClick={() => setOpen(false)}
                   to="/aboutus"
-                  className="block text-white hover:text-orange-400 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
+                  className="block text-yellow-500 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
                 >
                   ABOUT US
                 </Link>
@@ -112,7 +112,7 @@ export default function Header() {
                 <Link
                   onClick={() => setOpen(false)}
                   to="/gallery"
-                  className="block text-white hover:text-orange-400 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
+                  className="block text-yellow-500 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
                 >
                   GALLERY
                 </Link>
@@ -121,7 +121,7 @@ export default function Header() {
                 <Link
                   onClick={() => setOpen(false)}
                   to="/outwork"
-                  className="block text-white hover:text-orange-400 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
+                  className="block text-yellow-500 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
                 >
                   OUR WORK
                 </Link>
@@ -130,7 +130,7 @@ export default function Header() {
                 <Link
                   onClick={() => setOpen(false)}
                   to="/contactus"
-                  className="block text-white hover:text-orange-400 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
+                  className="block text-yellow-500 text-lg font-medium tracking-wider py-3 transform hover:scale-105"
                 >
                   CONTACT US
                 </Link>
