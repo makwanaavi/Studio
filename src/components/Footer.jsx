@@ -1,4 +1,5 @@
 import LogoWhite from "../assets/logo-white.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
 
@@ -29,7 +30,6 @@ export default function Footer() {
                 { icon: "ri-instagram-line", href: "#", color: "hover:text-pink-500" },
                 { icon: "ri-twitter-fill", href: "#", color: "hover:text-blue-400" },
                 { icon: "ri-youtube-fill", href: "#", color: "hover:text-red-500" },
-                { icon: "ri-pinterest-line", href: "#", color: "hover:text-red-400" }
               ].map((social, index) => (
                 <a
                   key={index}
@@ -50,23 +50,56 @@ export default function Footer() {
               <div className="absolute bottom-0 left-0 md:left-0 right-0 md:right-auto w-12 h-0.5 bg-yellow-400 mx-auto md:mx-0"></div>
             </h4>
             <ul className="space-y-3">
-              {[
-                { name: "HOME", href: "#home" },
-                { name: "ABOUT US", href: "#about" },
-                { name: "SERVICES", href: "#service" },
-                { name: "PORTFOLIO", href: "#portfolio" },
-                { name: "BLOG", href: "#blog" },
-                { name: "CONTACT", href: "#contact" }
-              ].map((link, index) => (
-                <li key={index}>
-                  <a
-                    href={link.href}
-                    className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link
+                  to="/"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                  HOME
+                </Link>
+              </li>
+
+               <li>
+                <Link
+                  to="/outwork"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                  OUR WORK
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/gallery"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                 GALLERY
+                </Link> 
+              </li>
+              <li>
+                <a
+                  href="/aboutus"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                  ABOUT US
+                </a>
+              </li>
+           
+              <li>
+                <a
+                  href="/service"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                SERVICES
+                </a>
+              </li>
+              <li>
+                <Link
+                  to="/contactus"
+                  className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
+                >
+                  CONTACT US
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -83,7 +116,6 @@ export default function Footer() {
                 "Event Coverage",
                 "Commercial Shoots",
                 "Photo Editing",
-                "Consultation"
               ].map((service, index) => (
                 <li key={index}>
                   <span className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 cursor-pointer">
@@ -127,8 +159,6 @@ export default function Footer() {
             <div className="flex flex-wrap justify-center gap-6 text-sm order-1 lg:order-2">
               <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Privacy Policy</a>
               <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Terms of Service</a>
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Cookie Policy</a>
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Sitemap</a>
             </div>
           </div>
         </div>
