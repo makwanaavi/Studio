@@ -6,7 +6,7 @@ export default function Footer() {
 
 
   return (
-    <footer id="contact" className="relative bg-black text-white overflow-hidden">
+    <footer id="contact" role="contentinfo" className="relative bg-black text-white overflow-hidden">
 
       {/* Main Footer Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">

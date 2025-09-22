@@ -118,7 +118,7 @@ const Hero = () => {
       </div>
 
       {/* Scroll Indicator - Enhanced for mobile */}
-      <div className="absolute bottom-6 sm:bottom-8 right-4 sm:right-6 lg:right-8 z-40 flex flex-col items-center text-yellow-400">
+      <div className="absolute bottom-6 sm:bottom-8 right-4 sm:right-6 lg:right-8 z-40 flex flex-col items-center text-white">
         <div className="hidden sm:flex flex-col items-center animate-bounce">
           <span className="text-xs sm:text-sm mb-1 sm:mb-2 font-medium tracking-wide">SCROLL</span>
           <div className="w-px h-6 sm:h-8 bg-yellow-400"></div>

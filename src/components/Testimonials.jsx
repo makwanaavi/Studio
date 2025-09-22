@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import client1 from "../assets/client-1.jpg";
 import client2 from "../assets/client-2.jpg";
 import client3 from "../assets/client-3.jpg";
@@ -10,145 +11,170 @@ import client3 from "../assets/client-3.jpg";
 const slides = [
   {
     img: client1,
-    text: `Capturer exceeded all our expectations! Their attention to detail and ability to capture the essence of our special day was truly remarkable. Every shot was perfectly composed and told our unique love story.`,
-    name: "Sarah and Michael",
+    text: `Capturer exceeded all our expectations! Their attention to detail and ability to capture the essence of our special day was truly remarkable.`,
+    name: "Sarah & Michael",
     role: "Wedding Clients",
     rating: 5
   },
   {
     img: client2,
-    text: `We couldn't be happier with our family portrait session with Capturer. They made us feel relaxed and comfortable, especially with our young children. The photos are absolutely stunning!`,
+    text: `We couldn't be happier with our family portrait session. They made us feel relaxed and the photos are simply stunning.`,
     name: "The Johnson Family",
-    role: "Family Portrait Session",
+    role: "Family Portrait",
     rating: 5
   },
   {
     img: client3,
-    text: `Capturer's maternity and newborn sessions captured the most precious moments of our lives with such tenderness and care. These photos will be treasured forever by our family forever by our family.`,
-    name: "Emily and David",
+    text: `Tender, patient, and creative — the maternity/newborn photos are treasures we'll keep forever.`,
+    name: "Emily & David",
     role: "Maternity & Newborn",
     rating: 5
   }
 ];
 
 export default function Testimonials() {
-  return (
-    <section id="client" className="py-20  relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-orange-400 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center p-2 rounded-full mb-4">
-           
-        <h2 className="text-3xl font-header mb-4 text-yellow-500">~  CLIENT TESTIMONIALS ~</h2>
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
-            What Our Clients Say
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover why families and couples trust us to capture their most precious moments
-          </p>
+  return (
+    <section id="client" className="py-20 md:py-28 lg:py-32 relative overflow-hidden bg-gradient-to-b from-yellow-50/40 via-transparent to-gray-50">
+      {/* Decorative background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -left-20 -top-10 w-72 h-72 bg-yellow-400 rounded-full blur-3xl opacity-30"></div>
+        <div className="absolute -right-20 -bottom-10 w-80 h-80 bg-orange-400 rounded-full blur-3xl opacity-20"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <span className="inline-block text-sm font-medium text-yellow-600 tracking-wider mb-3">OUR HAPPY CLIENTS</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">Real stories from families, couples and brands who trusted us to capture their moments.</p>
         </div>
 
-        {/* Testimonials Slider */}
+        {/* Swiper */}
         <div className="relative">
           <Swiper
-            modules={[Pagination, Autoplay]}
-            pagination={{ 
+            modules={[Pagination, Autoplay, Navigation]}
+            onSwiper={(s) => (swiperRef.current = s)}
+            onSlideChange={(s) => setActiveIndex(s.realIndex)}
+            pagination={{
               clickable: true,
+              bulletClass: 'swiper-pagination-bullet !mx-2',
               bulletActiveClass: 'swiper-pagination-bullet-active !bg-yellow-500',
-              bulletClass: 'swiper-pagination-bullet !bg-gray-300 !opacity-100'
             }}
-            autoplay={{ 
-              delay: 5000,
-              disableOnInteraction: false
-            }}
+            navigation={false}
+            autoplay={{ delay: 6000, disableOnInteraction: false }}
             slidesPerView={1}
-            spaceBetween={30}
+            spaceBetween={24}
             breakpoints={{
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 30
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 40
-              }
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 32 }
             }}
-            className="pb-16"
+            className="pb-12"
+            aria-live="polite"
           >
-            {slides.map((testimonial, index) => (
-              <SwiperSlide key={index}>
-                <div className="group">
-                  <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 h-full flex flex-col">
-                    {/* Quote Icon */}
-                    {/* <div className="flex justify-center mb-6">
-                      <div className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg">
-                        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
-                        </svg>
-                      </div>
-                    </div> */}
+            {slides.map((t, idx) => (
+              <SwiperSlide key={idx} aria-label={`Testimonial ${idx + 1}`}>
+                <article className="h-full flex flex-col bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transform transition-transform duration-400 hover:-translate-y-2">
+                  {/* Large decorative quotes */}
+                  <div className="relative p-6 lg:p-8 flex-grow">
+                    <div className="absolute -top-6 -left-6 text-9xl text-yellow-50 opacity-90 pointer-events-none select-none">“</div>
 
-                    {/* Testimonial Text */}
-                    <p className="text-gray-700 text-center leading-relaxed mb-8 flex-grow italic">
-                      "{testimonial.text}"
-                    </p>
-
-                    {/* Rating Stars */}
-                    {/* <div className="flex justify-center mb-6">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                      ))}
-                    </div> */}
-
-                    {/* Client Info */}
-                    <div className="text-center">
-                      <div className="relative inline-block mb-4">
-                        <img 
-                          src={testimonial.img} 
-                          alt={testimonial.name}
-                          className="w-16 h-16 object-cover rounded-full shadow-lg ring-4 ring-white mx-auto"
-                          onError={(e) => {
-                            e.currentTarget.src = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle fill="#f3f4f6" cx="32" cy="32" r="32"/><text x="50%" y="50%" fill="#6b7280" font-size="24" dominant-baseline="middle" text-anchor="middle">👤</text></svg>')}`;
-                          }}
-                        />
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-400 border-2 border-white rounded-full flex items-center justify-center">
-                          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                          </svg>
+                    <div className="flex flex-col h-full">
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2">
+                          {/* rating */}
+                          <div className="flex items-center">
+                            {[...Array(t.rating)].map((_, i) => (
+                              <svg key={i} className="w-4 h-4 text-yellow-400" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                                <path d="M12 .587l3.668 7.431L24 9.748l-6 5.847L19.335 24 12 20.201 4.665 24 6 15.595 0 9.748l8.332-1.73z" />
+                              </svg>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-1">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500 font-medium">{testimonial.role}</p>
+
+                      <p className="text-gray-700 leading-relaxed italic mb-6 flex-grow">“{t.text}”</p>
+
+                      <div className="flex items-center mt-4">
+                        <img
+                          src={t.img}
+                          alt={t.name}
+                          className="w-14 h-14 object-cover rounded-full shadow-md ring-2 ring-white mr-4 flex-shrink-0"
+                          onError={(e) => {
+                            e.currentTarget.src = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle fill="#f3f4f6" cx="28" cy="28" r="28"/><text x="50%" y="50%" fill="#9ca3af" font-size="20" dominant-baseline="middle" text-anchor="middle">👤</text></svg>')}`;
+                          }}
+                        />
+                        <div>
+                          <h3 className="text-sm font-semibold text-gray-900">{t.name}</h3>
+                          <p className="text-xs text-yellow-600 font-medium">{t.role}</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  {/* Footer CTA inside card */}
+                  <div className="px-6 lg:px-8 py-4 border-t border-gray-100 bg-white/60">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-sm text-gray-600">Loved this? Book a session.</span>
+                      <a href="/contactus" className="inline-flex items-center bg-yellow-500 hover:bg-yellow-400 text-black px-3 py-2 rounded-md text-sm font-semibold transition">
+                        Book Now
+                      </a>
+                    </div>
+                  </div>
+                </article>
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Controls */}
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-yellow-500 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              aria-label="Previous testimonial"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <div className="flex items-center gap-2">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => swiperRef.current?.slideTo(i)}
+                  className={`w-3 h-3 rounded-full transition-all ${activeIndex === i ? "bg-yellow-500 w-8 rounded-full" : "bg-gray-300"}`}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-yellow-500 hover:text-white transition focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              aria-label="Next testimonial"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
-          <div className="bg-black rounded-2xl p-8 shadow-xl">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              Ready to Create Your Story?
-            </h3>
-            <p className="text-white/90 mb-6 max-w-2xl mx-auto">
-              Join our family of satisfied clients and let us capture your most precious moments
-            </p>
-            <button className="bg-yellow-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-              Book Your Session
-            </button>
+        {/* Section CTA */}
+        <div className="mt-12">
+          <div className="bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold mb-2">Ready to Create Your Story?</h3>
+              <p className="text-gray-200">Join our family of satisfied clients and let us capture your most precious moments.</p>
+            </div>
+            <div>
+              <a href="/contactus" className="inline-flex items-center bg-yellow-400 hover:bg-yellow-300 text-black px-6 py-3 rounded-lg font-semibold transition">
+                Book Your Session
+              </a>
+            </div>
           </div>
         </div>
       </div>
