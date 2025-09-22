@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import LogoWhite from "../assets/logo-white.png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const firstMobileLinkRef = useRef(null);
+  const navRef = useRef(null);
+  const location = useLocation();
 
   // Respect reduced motion preference
   const prefersReducedMotion =
@@ -45,6 +47,38 @@ export default function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // Scroll to top and manage header/footer focus/tabindex on route change
+  useEffect(() => {
+    // close mobile menu on any navigation
+    setOpen(false);
+
+    if (typeof window === "undefined") return;
+
+    // Scroll to top respecting reduced motion
+    if (prefersReducedMotion) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Accessibility: focus header after navigation
+    const headerEl = document.getElementById("home");
+    if (headerEl) {
+      headerEl.setAttribute("tabindex", "-1");
+      headerEl.focus();
+      // remove tabindex shortly after so it doesn't stay in the tab order
+      setTimeout(() => headerEl.removeAttribute("tabindex"), 1000);
+    }
+
+    // Make footer programmatically reachable (but don't move focus)
+    const footerEl = document.getElementById("contact");
+    if (footerEl) {
+      footerEl.setAttribute("tabindex", "-1");
+      // remove after a short delay
+      setTimeout(() => footerEl.removeAttribute("tabindex"), 1000);
+    }
+  }, [location.pathname]); // run effect on route changes
+
   // Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -74,10 +108,39 @@ export default function Header() {
     };
   }, [open]);
 
+  // ensure fixed header doesn't cover content or anchored sections
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const docEl = document.documentElement;
+    const body = document.body;
+    const prevScrollPaddingTop = docEl.style.scrollPaddingTop || "";
+    const prevBodyPaddingTop = body.style.paddingTop || "";
+
+    const updateHeaderOffset = () => {
+      const nav = navRef.current;
+      if (!nav) return;
+      const height = Math.ceil(nav.getBoundingClientRect().height);
+      docEl.style.scrollPaddingTop = `${height}px`;
+      body.style.paddingTop = `${height}px`;
+    };
+
+    // initial set and resize handling
+    updateHeaderOffset();
+    window.addEventListener("resize", updateHeaderOffset);
+
+    return () => {
+      window.removeEventListener("resize", updateHeaderOffset);
+      // restore previous values
+      docEl.style.scrollPaddingTop = prevScrollPaddingTop;
+      body.style.paddingTop = prevBodyPaddingTop;
+    };
+  }, []); // run once on mount
+
   return (
     <header id="home" className="relative w-full overflow-hidden">
       {/* Navigation */}
       <nav
+        ref={navRef}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-black/80 backdrop-blur-sm shadow-md py-2"
@@ -129,10 +192,6 @@ export default function Header() {
                 <Link to="/" aria-label="Home" className="block transition-transform duration-300 hover:scale-105">
                   <div
                     className="rounded-full p-1 flex items-center justify-center shadow-lg"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(250,204,21,1), rgba(249,115,22,1))",
-                    }}
                   >
                     <div className="bg-black rounded-full p-1 flex items-center justify-center">
                       <img
