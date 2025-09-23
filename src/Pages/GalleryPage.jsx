@@ -15,11 +15,11 @@ const GalleryPage = () => {
     { title: 'Classic Couple', image: 'https://images.unsplash.com/photo-1715090622465-e068b074e635?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Wedding' },
     { title: 'Warm Moments', image: 'https://images.unsplash.com/photo-1741462115984-bf9ac4b1719a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Pre Wedding', featured: true },
     { title: 'Golden Hour', image: 'https://images.unsplash.com/photo-1640744536137-f1ed12b2f79f?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Wedding' },
-    { title: 'Elegant Pose', image: 'https://images.unsplash.com/photo-1514996937319-344454492b37?w=1200&q=80', category: 'Pre Wedding' },
-    { title: 'Romantic Picnic', image: 'https://images.unsplash.com/photo-1502764613149-7f1d229e230f?w=1200&q=80', category: 'Wedding', featured: true },
-    { title: 'Quiet Stroll', image: 'https://images.unsplash.com/photo-1503264116251-35a269479413?w=1200&q=80', category: 'Pre Wedding' },
-    { title: 'Glamour', image: 'https://images.unsplash.com/photo-1524504388940-9f6b7a7b2f3b?w=1200&q=80', category: 'Wedding' },
-    { title: 'Soft Light', image: 'https://images.unsplash.com/photo-1502378735452-bc7d86632805?w=1200&q=80', category: 'Pre Wedding' },
+    { title: 'Elegant Pose', image: 'https://images.unsplash.com/photo-1744804298523-9e4ddf5e6dc4?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Pre Wedding' },
+    { title: 'Romantic Picnic', image: 'https://images.unsplash.com/photo-1722952908681-944d47e45853?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Wedding', featured: true },
+    { title: 'Quiet Stroll', image: 'https://images.unsplash.com/photo-1741441033468-abdc0a02b84f?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Pre Wedding' },
+    { title: 'Glamour', image: 'https://images.unsplash.com/photo-1611505254094-4b0ae99e6500?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Wedding' },
+    { title: 'Soft Light', image: 'https://images.unsplash.com/photo-1587271636175-90d58cdad458?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Pre Wedding' },
     // Add more high-quality images
     ...Array.from({ length: 14 }, (_, i) => ({
       title: `Gallery Photo ${i + 9}`,
