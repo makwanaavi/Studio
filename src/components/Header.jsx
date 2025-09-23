@@ -95,7 +95,7 @@ export default function Header() {
           </ul>
 
           {/* Center logo */}
-          <div className="flex items-center justify-center mx-2">
+          {/* <div className="flex items-center justify-center mx-2">
             <Link to="/" aria-label="Home" className="block">
               <div className="rounded-full p-1 flex items-center justify-center logo-hover">
                 <div className="bg-black rounded-full p-1 flex items-center justify-center">
@@ -115,7 +115,7 @@ export default function Header() {
                 </div>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           {/* Right desktop links */}
           <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold">
