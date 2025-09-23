@@ -1,8 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
-import hero1 from "../assets/header.jpg";
+
 
 const Hero = () => {
-  const slides = [hero1];
+  // Use base image URLs (without query params). We'll build responsive URLs below.
+  const slides = [
+    "https://images.unsplash.com/photo-1678705902081-5d55ab847046",
+    "https://images.unsplash.com/photo-1735052713246-cacc89997ecf",
+    "https://images.unsplash.com/photo-1735415899663-484cf50935dd",
+    "https://images.unsplash.com/photo-1740469703470-0dde72f3f4a6",
+    "https://plus.unsplash.com/premium_photo-1729038880168-b9123602b10b",
+  ];
+
+  // Helper to build responsive URLs from the base Unsplash URL
+  const buildSrc = (base, w = 1920) =>
+    `${base}?w=${w}&auto=format&fit=crop&fm=jpg&q=100`;
+
+  const buildSrcSet = (base) =>
+    [
+      `${buildSrc(base, 640)} 640w`,
+      `${buildSrc(base, 1024)} 1024w`,
+      `${buildSrc(base, 1920)} 1920w`,
+      `${buildSrc(base, 3840)} 3840w`,
+    ].join(", ");
+
   const [current, setCurrent] = useState(0);
   const slideInterval = useRef(null);
 
@@ -45,11 +65,6 @@ const Hero = () => {
         .slide-anim { 
           transition: opacity 1200ms ease-in-out, transform 1200ms ease-in-out; 
         }
-        .hero-img {
-          image-rendering: -webkit-optimize-contrast;
-          image-rendering: crisp-edges;
-          image-rendering: optimize-quality;
-        }
         @media (max-width: 768px) {
           .kenburns-mobile {
             animation: kenburns 12s ease-in-out infinite;
@@ -67,14 +82,15 @@ const Hero = () => {
             }`}
           >
             <img
-              src={src}
+              src={buildSrc(src, 1920)}
+              srcSet={buildSrcSet(src)}
+              sizes="(max-width: 768px) 100vw, 100vw"
+              decoding="async"
               alt={`Studio slide ${idx + 1}`}
-              className="w-full h-full object-cover hero-img"
+              className="w-full h-full object-cover"
               style={{
-                width: "100vw",
                 height: "100vh",
                 minHeight: "100vh",
-                maxWidth: "100%",
                 objectFit: "cover",
                 objectPosition: "center",
                 animation: idx === current ? "kenburns 15s ease-in-out infinite" : "none",

@@ -1,383 +1,232 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import LogoWhite from "../assets/logo-white.png";
 
 export default function Header() {
+  // keep mobile open state and first link ref
   const [open, setOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const firstMobileLinkRef = useRef(null);
-  const navRef = useRef(null);
-  const location = useLocation();
 
-  // Respect reduced motion preference
-  const prefersReducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Replace this with your attached image path (or data URL) to use as mobile panel background
+  const MOBILE_BG_SRC = "/path/to/your/mobile-bg.jpg";
 
-  // Handle scroll effect for navbar
+  // close on Escape and focus first mobile link when opened
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    const handleRouteChange = () => setOpen(false);
-    window.addEventListener("popstate", handleRouteChange);
-    return () => window.removeEventListener("popstate", handleRouteChange);
-  }, []);
-
-  // Close on Escape and manage focus when opening mobile menu
-  useEffect(() => {
-    if (!open) return;
     const onKey = (e) => {
       if (e.key === "Escape") setOpen(false);
     };
-    document.addEventListener("keydown", onKey);
-
-    // Focus first link for keyboard users
-    if (firstMobileLinkRef.current) {
-      firstMobileLinkRef.current.focus();
-    }
-
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
-
-  // Scroll to top and manage header/footer focus/tabindex on route change
-  useEffect(() => {
-    // close mobile menu on any navigation
-    setOpen(false);
-
-    if (typeof window === "undefined") return;
-
-    // Scroll to top respecting reduced motion
-    if (prefersReducedMotion) {
-      window.scrollTo(0, 0);
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    // Accessibility: focus header after navigation
-    const headerEl = document.getElementById("home");
-    if (headerEl) {
-      headerEl.setAttribute("tabindex", "-1");
-      headerEl.focus();
-      // remove tabindex shortly after so it doesn't stay in the tab order
-      setTimeout(() => headerEl.removeAttribute("tabindex"), 1000);
-    }
-
-    // Make footer programmatically reachable (but don't move focus)
-    const footerEl = document.getElementById("contact");
-    if (footerEl) {
-      footerEl.setAttribute("tabindex", "-1");
-      // remove after a short delay
-      setTimeout(() => footerEl.removeAttribute("tabindex"), 1000);
-    }
-  }, [location.pathname]); // run effect on route changes
-
-  // Prevent background scroll when mobile menu is open
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const body = document.body;
-
-    const lockScroll = () => {
-      // compensate for scrollbar to avoid layout shift
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      body.style.overflow = "hidden";
-      if (scrollbarWidth > 0) body.style.paddingRight = `${scrollbarWidth}px`;
-    };
-
-    const unlockScroll = () => {
-      body.style.overflow = "";
-      body.style.paddingRight = "";
-    };
-
     if (open) {
-      lockScroll();
+      document.addEventListener("keydown", onKey);
+      if (firstMobileLinkRef.current) firstMobileLinkRef.current.focus();
+      // prevent background scrolling while menu is open
+      document.body.style.overflow = "hidden";
     } else {
-      unlockScroll();
+      document.body.style.overflow = "";
     }
-
-    // cleanup on unmount
     return () => {
-      unlockScroll();
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
     };
   }, [open]);
-
-  // ensure fixed header doesn't cover content or anchored sections
-  useEffect(() => {
-    if (typeof document === "undefined") return;
-    const docEl = document.documentElement;
-    const body = document.body;
-    const prevScrollPaddingTop = docEl.style.scrollPaddingTop || "";
-    const prevBodyPaddingTop = body.style.paddingTop || "";
-
-    const updateHeaderOffset = () => {
-      const nav = navRef.current;
-      if (!nav) return;
-      const height = Math.ceil(nav.getBoundingClientRect().height);
-      docEl.style.scrollPaddingTop = `${height}px`;
-      body.style.paddingTop = `${height}px`;
-    };
-
-    // initial set and resize handling
-    updateHeaderOffset();
-    window.addEventListener("resize", updateHeaderOffset);
-
-    return () => {
-      window.removeEventListener("resize", updateHeaderOffset);
-      // restore previous values
-      docEl.style.scrollPaddingTop = prevScrollPaddingTop;
-      body.style.paddingTop = prevBodyPaddingTop;
-    };
-  }, []); // run once on mount
 
   return (
-    <header id="home" className="relative w-full overflow-hidden">
-      {/* Navigation */}
-      <nav
-        ref={navRef}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-black/80 backdrop-blur-sm shadow-md py-2"
-            : "py-4 bg-black/80"
-        }`}
-      >
-        {/* Keep wrapper transparent so backdrop blur is visible */}
-        <div className="w-full text-white">
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center justify-center px-4 lg:px-6">
-            <div className="flex w-full max-w-7xl items-center justify-between mx-auto">
-              {/* Left nav */}
-              <ul className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium tracking-wide">
-                <li>
-                  <NavLink
-                    to="/"
-                    end
-                    className={({ isActive }) =>
-                      `nav-link hover:text-yellow-400 transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    HOME
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/outwork"
-                    className={({ isActive }) =>
-                      `nav-link transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    OUR WORK
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/gallery"
-                    className={({ isActive }) =>
-                      `nav-link transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    GALLERY
-                  </NavLink>
-                </li>
-              </ul>
+    <header id="home" className="w-full">
+      {/* Styles for animated underline and mobile stagger */}
+      <style>{`
+        .link-underline {
+          position: relative;
+        }
+        .link-underline::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -6px;
+          height: 2px;
+          width: 100%;
+          background: #FACC15;
+          transform-origin: left;
+          transform: scaleX(0);
+          transition: transform 240ms ease;
+        }
+        .link-underline:hover::after,
+        .link-underline:focus::after,
+        .link-underline.active::after {
+          transform: scaleX(1);
+        }
 
-              {/* Logo */}
-              <div className="flex-shrink-0 flex items-center justify-center mx-4 lg:mx-8">
-                <Link to="/" aria-label="Home" className="block transition-transform duration-300 hover:scale-105">
-                  <div
-                    className="rounded-full p-1 flex items-center justify-center shadow-lg"
-                  >
-                    <div className="bg-black rounded-full p-1 flex items-center justify-center">
-                      <img
-                        src={LogoWhite}
-                        alt="Studio logo"
-                        className="object-contain"
-                        style={{ width: "80px", height: "80px" }}
-                        loading="lazy"
-                        onError={(e) => {
-                          e.currentTarget.onerror = null;
-                          e.currentTarget.src = `data:image/svg+xml;utf8,${encodeURIComponent(
-                            '<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="50%" y="50%" fill="%23fff" font-size="16" font-family="Arial" font-weight="bold" dominant-baseline="middle" text-anchor="middle">Studio</text></svg>'
-                          )}`;
-                        }}
-                      />
-                    </div>
-                  </div>
-                </Link>
-              </div>
+        /* mobile menu item stagger */
+        .mobile-item { opacity: 0; transform: translateY(12px); transition: all 360ms cubic-bezier(.2,.9,.2,1); }
+        .mobile-open .mobile-item { opacity: 1; transform: translateY(0); }
+        .mobile-open .mobile-item:nth-child(1) { transition-delay: 80ms; }
+        .mobile-open .mobile-item:nth-child(2) { transition-delay: 140ms; }
+        .mobile-open .mobile-item:nth-child(3) { transition-delay: 200ms; }
+        .mobile-open .mobile-item:nth-child(4) { transition-delay: 260ms; }
+        .mobile-open .mobile-item:nth-child(5) { transition-delay: 320ms; }
+        .mobile-open .mobile-item:nth-child(6) { transition-delay: 380ms; }
 
-              {/* Right nav */}
-              <ul className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium tracking-wide">
-                <li>
-                  <NavLink
-                    to="/aboutus"
-                    className={({ isActive }) =>
-                      `transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    ABOUT US
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/service"
-                    className={({ isActive }) =>
-                      `transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    SERVICES
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/contactus"
-                    className={({ isActive }) =>
-                      `transition-colors duration-200 ${isActive ? "text-yellow-400" : ""}`
-                    }
-                  >
-                    CONTACT US
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-          </div>
+        /* subtle logo hover */
+        .logo-hover { transition: transform 220ms ease, box-shadow 220ms ease; }
+        .logo-hover:hover { transform: scale(1.04) rotate(-1deg); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
 
-          {/* Mobile nav */}
-          <div
-            className={`flex items-center justify-between h-16 px-4 text-white md:hidden ${
-              isScrolled ? "bg-black/0" : "bg-transparent"
-            }`}
-          >
-            <Link to="/" aria-label="Home" className="z-50">
-              <div
-                className="rounded-full p-1 flex items-center justify-center"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(250,204,21,1), rgba(249,115,22,1))",
-                }}
-              >
+        /* mobile bg image styling (low opacity decorative) */
+        .mobile-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.14; filter: blur(2px); transform: scale(1.02); }
+      `}</style>
+
+      {/* polished fixed header: full-width on small screens, centered floating on md+ */}
+      <nav className="fixed top-0 md:top-4 left-0 md:left-1/2 md:transform md:-translate-x-1/2 z-40 w-full md:w-[95%] max-w-7xl rounded-none md:rounded-xl bg-black/70 text-white backdrop-blur-md border border-white/5 shadow-xl">
+        <div className="flex items-center justify-between h-20 px-4 md:px-6">
+          {/* Left desktop links */}
+          <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold">
+            <li>
+              <NavLink to="/" end className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                HOME
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/outwork" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                OUR WORK
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/gallery" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                GALLERY
+              </NavLink>
+            </li>
+          </ul>
+
+          {/* Center logo */}
+          <div className="flex items-center justify-center mx-2">
+            <Link to="/" aria-label="Home" className="block">
+              <div className="rounded-full p-1 flex items-center justify-center logo-hover">
                 <div className="bg-black rounded-full p-1 flex items-center justify-center">
                   <img
                     src={LogoWhite}
                     alt="Studio logo"
-                    className="w-12 h-12 object-contain"
+                    className="object-contain w-14 h-14 md:w-14 md:h-14 lg:w-16 lg:h-16"
+                    style={{ width: 56, height: 56 }}
                     loading="lazy"
                     onError={(e) => {
                       e.currentTarget.onerror = null;
                       e.currentTarget.src = `data:image/svg+xml;utf8,${encodeURIComponent(
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"><circle cx="24" cy="24" r="24" fill="%23000"/><text x="50%" y="50%" fill="%23fff" font-size="10" font-family="Arial" font-weight="bold" dominant-baseline="middle" text-anchor="middle">Studio</text></svg>'
+                        '<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><text x="50%" y="50%" fill="%23fff" font-size="12" font-family="Arial" font-weight="bold" dominant-baseline="middle" text-anchor="middle">Studio</text></svg>'
                       )}`;
                     }}
                   />
                 </div>
               </div>
             </Link>
+          </div>
+
+          {/* Right desktop links */}
+          <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold">
+            <li>
+              <NavLink to="/aboutus" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                ABOUT US
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/service" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                SERVICES
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/contactus" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+                CONTACT
+              </NavLink>
+            </li>
+          </ul>
+
+          {/* Mobile controls */}
+          <div className="flex items-center lg:hidden gap-2">
             <button
-              onClick={() => setOpen(!open)}
-              className="w-10 h-10 flex items-center justify-center text-white rounded-lg transition-all z-50 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              aria-label="Toggle menu"
+              onClick={() => setOpen(prev => !prev)}
+              className="w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              aria-label="Open menu"
               aria-expanded={open}
               aria-controls="mobile-menu"
             >
-              <div className="relative w-6 h-6 flex flex-col justify-center">
-                <span
-                  className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${
-                    open ? "rotate-45 translate-y-0" : "-translate-y-1"
-                  }`}
-                ></span>
-                <span
-                  className={`bg-white block h-0.5 w-6 rounded-sm my-1.5 transition-all duration-300 ${
-                    open ? "opacity-0" : "opacity-100"
-                  }`}
-                ></span>
-                <span
-                  className={`bg-white block h-0.5 w-6 rounded-sm transition-all duration-300 ${
-                    open ? "-rotate-45 -translate-y-0" : "translate-y-1"
-                  }`}
-                ></span>
-              </div>
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
+              </svg>
             </button>
           </div>
+        </div>
 
-          {/* Mobile menu */}
+        {/* Mobile full-screen overlay menu */}
+        <div
+          id="mobile-menu"
+          className={`lg:hidden fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+           aria-hidden={!open}
+           role="dialog"
+           aria-modal="true"
+         >
+          {/* dark translucent backdrop */}
           <div
-            id="mobile-menu"
-            className={`md:hidden fixed inset-0 transition-all ${
-              prefersReducedMotion ? "" : "duration-300 ease-in-out"
-            } bg-white/95 z-40 ${
-              open
-                ? "opacity-100 translate-y-0 visible"
-                : "opacity-0 -translate-y-full invisible"
-            }`}
-            style={{ paddingTop: "4rem", backdropFilter: "blur(6px)" }}
-            aria-hidden={!open}
-            role="dialog"
-            aria-modal="true"
-          >
-            <ul className="text-center py-8 space-y-2 h-full flex flex-col justify-center">
-              <li>
-                <NavLink
-                  to="/"
-                  end
-                  onClick={() => setOpen(false)}
-                  ref={firstMobileLinkRef}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  HOME
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/aboutus"
-                  onClick={() => setOpen(false)}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  ABOUT US
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/gallery"
-                  onClick={() => setOpen(false)}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  GALLERY
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/outwork"
-                  onClick={() => setOpen(false)}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  OUR WORK
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/service"
-                  onClick={() => setOpen(false)}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  SERVICES
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/contactus"
-                  onClick={() => setOpen(false)}
-                  className="block text-gray-900 text-xl font-medium tracking-wider py-4 transition-colors duration-200 hover:text-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                >
-                  CONTACT US
-                </NavLink>
-              </li>
-            </ul>
+            className={`absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity duration-500 ${open ? "opacity-100" : "opacity-0"}`}
+            onClick={() => setOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* panel */}
+          <div
+             // stop clicks inside the panel from bubbling to the backdrop
+             onClick={(e) => e.stopPropagation()}
+            className={`relative z-60 origin-center w-[92%] max-w-2xl bg-gradient-to-b from-white/5 to-white/3 rounded-3xl border border-white/5 p-4 sm:p-8 text-white shadow-2xl transform transition-all duration-300 ${open ? "translate-y-0 scale-100" : "translate-y-2 scale-95"} max-h-[86vh] overflow-auto`}
+             style={{ transformOrigin: "center" }}
+           >
+             {/* decorative mobile background image (replace MOBILE_BG_SRC above) */}
+             {MOBILE_BG_SRC && (
+               <img src={MOBILE_BG_SRC} alt="" className="mobile-bg hidden sm:block" aria-hidden="true" />
+             )}
+
+            {/* close button */}
+            <div className="flex justify-end">
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="w-12 h-12 flex items-center justify-center rounded-lg bg-white/6 hover:bg-white/12 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              >
+                <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <nav className={`mt-4 ${open ? "mobile-open" : ""}`}>
+              <ul className="flex flex-col gap-4 pt-3 pb-5 px-4 sm:px-6">
+                <li className="mobile-item">
+                  <NavLink
+                    to="/"
+                    end
+                    ref={firstMobileLinkRef}
+                    onClick={() => setOpen(false)}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    HOME
+                  </NavLink>
+                </li>
+                <li className="mobile-item">
+                  <NavLink to="/aboutus" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>ABOUT US</NavLink>
+                </li>
+                <li className="mobile-item">
+                  <NavLink to="/gallery" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>GALLERY</NavLink>
+                </li>
+                <li className="mobile-item">
+                  <NavLink to="/outwork" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>OUR WORK</NavLink>
+                </li>
+                <li className="mobile-item">
+                  <NavLink to="/service" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>SERVICES</NavLink>
+                </li>
+                <li className="mobile-item">
+                  <NavLink to="/contactus" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>CONTACT</NavLink>
+                </li>
+              </ul>
+
+              <div className="mt-6 border-t border-white/5 pt-4 text-sm text-white/80">
+                <p className="mb-2">Need help? <a href="/contactus" className="underline text-yellow-400" onClick={() => setOpen(false)}>Contact us</a></p>
+                <p className="text-xs">© {new Date().getFullYear()} Studio</p>
+              </div>
+            </nav>
           </div>
         </div>
       </nav>
