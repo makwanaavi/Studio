@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
 
-
+  // NEW: helper to scroll to top (smooth)
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   return (
     <footer id="contact" role="contentinfo" className="relative bg-black text-white overflow-hidden">
@@ -53,6 +58,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   HOME
@@ -62,6 +68,7 @@ export default function Footer() {
                <li>
                 <Link
                   to="/outwork"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   OUR WORK
@@ -70,6 +77,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/gallery"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                  GALLERY
@@ -78,6 +86,7 @@ export default function Footer() {
               <li>
                 <a
                   href="/aboutus"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   ABOUT US
@@ -87,6 +96,7 @@ export default function Footer() {
               <li>
                 <a
                   href="/service"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                 SERVICES
@@ -95,6 +105,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/contactus"
+                  onClick={() => scrollToTop()}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   CONTACT US
@@ -157,8 +168,8 @@ export default function Footer() {
               © 2024 Studio Photography. All rights reserved. | Designed with ❤️
             </div>
             <div className="flex flex-wrap justify-center gap-6 text-sm order-1 lg:order-2">
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Privacy Policy</a>
-              <a href="#" className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Terms of Service</a>
+              <a href="#" onClick={() => scrollToTop()} className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Privacy Policy</a>
+              <a href="#" onClick={() => scrollToTop()} className="text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:underline">Terms of Service</a>
             </div>
           </div>
         </div>
