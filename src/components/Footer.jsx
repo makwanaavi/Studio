@@ -53,6 +53,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/"
+                  onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   HOME
@@ -62,6 +63,7 @@ export default function Footer() {
                <li>
                 <Link
                   to="/outwork"
+                  onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   OUR WORK
@@ -70,6 +72,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/gallery"
+                  onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                  GALLERY
@@ -95,6 +98,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/contactus"
+                  onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
                   className="text-gray-300 hover:text-yellow-400 transition-colors duration-300 hover:translate-x-1 inline-block font-medium"
                 >
                   CONTACT US

@@ -78,24 +78,37 @@ export default function Header() {
           {/* Left desktop links */}
           <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold">
             <li>
-              <NavLink to="/" end className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/"
+                end
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 HOME
               </NavLink>
             </li>
             <li>
-              <NavLink to="/outwork" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/outwork"
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 OUR WORK
               </NavLink>
             </li>
             <li>
-              <NavLink to="/gallery" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/gallery"
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 GALLERY
               </NavLink>
             </li>
           </ul>
 
           {/* Center logo */}
-          {/* <div className="flex items-center justify-center mx-2">
+          <div className="flex items-center justify-center mx-2">
             <Link to="/" aria-label="Home" className="block">
               <div className="rounded-full p-1 flex items-center justify-center logo-hover">
                 <div className="bg-black rounded-full p-1 flex items-center justify-center">
@@ -115,22 +128,34 @@ export default function Header() {
                 </div>
               </div>
             </Link>
-          </div> */}
+          </div>
 
           {/* Right desktop links */}
           <ul className="hidden lg:flex items-center gap-8 text-sm font-semibold">
             <li>
-              <NavLink to="/aboutus" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/aboutus"
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 ABOUT US
               </NavLink>
             </li>
             <li>
-              <NavLink to="/service" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/service"
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 SERVICES
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contactus" className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}>
+              <NavLink
+                to="/contactus"
+                onClick={() => window.scrollTo({top: 0, behavior: "smooth"})}
+                className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
+              >
                 CONTACT
               </NavLink>
             </li>
@@ -199,26 +224,56 @@ export default function Header() {
                     to="/"
                     end
                     ref={firstMobileLinkRef}
-                    onClick={() => setOpen(false)}
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
                     className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
                   >
                     HOME
                   </NavLink>
                 </li>
                 <li className="mobile-item">
-                  <NavLink to="/aboutus" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>ABOUT US</NavLink>
+                  <NavLink
+                    to="/aboutus"
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    ABOUT US
+                  </NavLink>
                 </li>
                 <li className="mobile-item">
-                  <NavLink to="/gallery" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>GALLERY</NavLink>
+                  <NavLink
+                    to="/gallery"
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    GALLERY
+                  </NavLink>
                 </li>
                 <li className="mobile-item">
-                  <NavLink to="/outwork" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>OUR WORK</NavLink>
+                  <NavLink
+                    to="/outwork"
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    OUR WORK
+                  </NavLink>
                 </li>
                 <li className="mobile-item">
-                  <NavLink to="/service" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>SERVICES</NavLink>
+                  <NavLink
+                    to="/service"
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    SERVICES
+                  </NavLink>
                 </li>
                 <li className="mobile-item">
-                  <NavLink to="/contactus" onClick={() => setOpen(false)} className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}>CONTACT</NavLink>
+                  <NavLink
+                    to="/contactus"
+                    onClick={() => { setOpen(false); window.scrollTo({top: 0, behavior: "smooth"}); }}
+                    className={({ isActive }) => `block text-2xl sm:text-3xl md:text-2xl font-semibold ${isActive ? "text-yellow-400" : "text-white"}`}
+                  >
+                    CONTACT
+                  </NavLink>
                 </li>
               </ul>
 
