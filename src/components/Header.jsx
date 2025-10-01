@@ -92,7 +92,7 @@ export default function Header() {
                 onClick={() => scrollToTop()}
                 className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
               >
-                OUR WORK
+                OUR WORKS
               </NavLink>
             </li>
             <li>
@@ -135,7 +135,7 @@ export default function Header() {
                   className={({ isActive }) => `link-underline ${isActive ? "active text-yellow-400" : "hover:text-yellow-400"}`}
                 >
                   SERVICES
-                  
+
                 </NavLink>
               </li>
               <li>
